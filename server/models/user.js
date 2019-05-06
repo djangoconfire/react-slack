@@ -9,11 +9,11 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
       },
-      pasword: DataTypes.STRING,
+      password: DataTypes.STRING,
     },
     { underscored: true },
   );
-
+  
   User.associate = (models) => {
     User.belongsToMany(models.Team, {
       through: 'member',
