@@ -19,6 +19,8 @@ class Register extends Component {
             passwordError: ''
         })
         const { username, email, password } = this.state;
+        console.log("Props are",this.props);
+        
         const response = await this.props.mutate({
             variables: { username, email, password }
         })
@@ -33,14 +35,14 @@ class Register extends Component {
             errors.forEach(({ path , message }) => {
                 err[`${path}Error`] = message
             })  
-
             this.setState(err)
         }
     }
 
     onChange = e => {
+        const { name, value } = e.target
         this.setState({
-            [e.target.name] : e.target.value
+            [name] : value
         })
     }
 
@@ -60,7 +62,7 @@ class Register extends Component {
 
         return (
             <Container text>
-                <Header as='h2'>Register</Header>
+                <Header as='h4'>Register</Header>
                 {/* Username */}
                 <Input 
                     name="username"
@@ -86,7 +88,7 @@ class Register extends Component {
                 {/* Submit Button */}
                 <Button onClick={this.onSubmit}>Register</Button>
                 { usernameError || emailError || passwordError ?
-                    (<Message error Header="There are some error with frm submissions" list={errorList} />)
+                    (<Message error Header="There are some error with your submissions" list={errorList} />)
                     : null 
                 }
             </Container>
