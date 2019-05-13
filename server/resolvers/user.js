@@ -5,6 +5,7 @@
 
 import bcrypt from 'bcrypt'; // Hashed the password 
 import _ from 'lodash'; // lodash imports 
+import { loginFunc } from '../auth';
 
 const formatErrors = (e, models) => {
   if (e instanceof models.sequelize.ValidationError) {
@@ -19,9 +20,10 @@ export default {
     allUsers: (parent, args, { models }) => models.User.findAll(),
   },
   Mutation: {
+    login: async(parent, { email, password }, { models, SECRET, SECRET2 }) =>
+      loginFunc(email, password, models, SECRET, SECRET2),
     register: async (parent, { password, ...otherArgs }, { models }) => {
       try {
-        console.log('paswordlength', password.length);
         if (password.length < 5 || password.length > 100) {
           return {
             ok: false,
@@ -36,7 +38,7 @@ export default {
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = await models.User.create({ ...otherArgs, password: hashedPassword });
         return { 
-          ok: true, 
+          ok: true,
           user,
         };
       } catch (err) {
