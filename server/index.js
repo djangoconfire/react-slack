@@ -11,6 +11,10 @@ import models from './models';
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
 
+
+const SECRET = 'ewrghjggxcvnmjiofslkrjfknmsvosavkln1234fsfnlkfj';
+const SECRET2 = 'wjerfjknslnadadadadekjoklndadsafsaerfdgfhgdht234';
+
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
@@ -27,14 +31,15 @@ app.use(
     schema, 
     context: { 
       models, 
-      user: 
-        { id: 1 } 
+      user: { id: 1 }, 
+      SECRET,
+      SECRET2,
       } 
     })  
   );
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: graphqlEndpoint }));
 
-models.sequelize.sync({ force: true }).then(() => {
+models.sequelize.sync().then(() => {
   app.listen(8081);
 });
