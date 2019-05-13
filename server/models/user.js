@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 export default (sequelize, DataTypes) => {
   const User = sequelize.define(
     'slack_user', {
@@ -11,7 +13,7 @@ export default (sequelize, DataTypes) => {
         //   },
         //   len: {
         //     args: [3, 25],
-        //     msg: 'Username can be 3 to 25 characters long',
+        //     msg: 'Username needs to be  3 to 25 characters long',
         //   },
         // },
       },
@@ -28,14 +30,16 @@ export default (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         // validate: {
-        //   args: [5, 100],
-        //   msg: 'Password can be 5 to 100 characetrs long',
+        //   len: {
+        //     args: [5, 100],
+        //     msg: 'Password needs to be 5 to 100 characetrs long',
+        //   },
         // },
       },
     },
     { underscored: true },
   );
-  
+
   User.associate = (models) => {
     User.belongsToMany(models.Team, {
       through: 'member',

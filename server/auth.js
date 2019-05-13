@@ -12,8 +12,7 @@ export const createTokens = async (user, secret, secret2) => {
       expiresIn: '1h',
     },
   );
-  console.log('Create token', createToken);
-
+  
   const createRefreshToken = jwt.sign(
     {
       user: _.pick(user, 'id'),

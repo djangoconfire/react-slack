@@ -1,10 +1,10 @@
 import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize('slack', 'ritu', 'parrot', {
-    dialect: 'postgres',
-    define: {
-        underscored: true, 
-    }
+  dialect: 'postgres',
+  define: {
+    underscored: true,
+  },
 });
 const models = {
   User: sequelize.import('./user'),
@@ -13,10 +13,10 @@ const models = {
   Message: sequelize.import('./message'),
 };
 
-Object.keys(models).forEach(modelName => {
-    if ('associate' in models[modelName]) {
-        models[modelName].associate(models);
-    }
+Object.keys(models).forEach((modelName) => {
+  if ('associate' in models[modelName]) {
+    models[modelName].associate(models);
+  }
 });
 
 models.sequelize = sequelize;
