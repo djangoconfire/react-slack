@@ -30,7 +30,6 @@ class CreateTeamComponent extends React.Component {
             })
 
             this.errors = err;
-            console.log("erros",this.errors)
         }
     };
 
