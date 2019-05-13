@@ -1,3 +1,5 @@
+// import { formatErrors } from '../formatError';
+
 export default {
     Query: {
         allTeams: (parent, args, { models }) => models.Team.findAll(),
@@ -6,10 +8,14 @@ export default {
         createTeam: async (parent, args, { models, user }) => {
             try {
                 await models.Team.create({ ...args, owner: user.id });
-                return true;
+                return {
+                    ok: true,
+                }
             } catch(err) {
-                console.log('Error ocured', err);
-                return false;
+                return {
+                    ok: false,
+                    errors: [{ path: 'name', message: 'Something went wrong!'}],
+                }
             }
         }
     }
