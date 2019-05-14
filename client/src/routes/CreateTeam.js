@@ -45,9 +45,8 @@ class CreateTeamComponent extends React.Component {
         if (nameError){
             errorList.push(nameError)
         }
-
-        console.log("Error list", errorList);
-    
+        console.log("Error list", errorList);    
+        
         return (
         <Container text>
             <Header as="h2">Create Team</Header>
