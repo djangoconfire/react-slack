@@ -1,7 +1,11 @@
 export default `
   type Team {
     id: Int!
+    name: String!
     owner: User!
+    channels: [Channel!]!
+    members: [User!]!
+    errors: [Error!]
   }
 
   type Query {

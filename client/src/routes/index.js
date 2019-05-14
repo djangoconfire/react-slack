@@ -7,6 +7,7 @@ import Register from './Register';
 import LoginComponent from './login';
 import CreateTeamComponent from './CreateTeam';
 import decode from 'jwt-decode';
+import DashboardComponent from './Dashboard';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -43,6 +44,7 @@ export default () => (
       <Route path="/" exact component={Home} />
       <Route path="/register" exact component={Register} />
       <Route path="/login" exact component={LoginComponent} />
+      <Route path="/dashboard" exact component={DashboardComponent} />
       <PrivateRoute path="/create_team" exact component={CreateTeamComponent} />
     </Switch>
   </BrowserRouter>

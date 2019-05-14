@@ -15,11 +15,18 @@ class CreateTeamComponent extends React.Component {
 
     onSubmit = async () => {
         const { name } = this;
-        const response = await this.props.mutate({
-            variables: { name }
-        })
+        let response = null
+    
+        try {
+            response = await this.props.mutate({
+                variables: { name }
+            })
+        } catch (err) {
+            this.props.history.push('/login')
+            return  
+        }
+
         // Response from backend
-        console.log("Response",response);
         const { ok, errors } = response.data.createTeam;
         if (ok){
             this.props.history.push('/')
@@ -28,7 +35,6 @@ class CreateTeamComponent extends React.Component {
             errors.forEach(({ path , message }) => {
                 err[`${path}Error`] = message;
             })
-
             this.errors = err;
         }
     };

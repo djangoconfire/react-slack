@@ -2,6 +2,10 @@
 import requiresAuth from '../permissions';
 
 export default {
+  Query: {
+    allTeams: requiresAuth.createResolver(async (parent, args, { models, user }) =>
+      models.Team.findall({ where: { owner: user.id } }, { raw: true })),
+  },
   Mutation: {
     createTeam: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
@@ -10,12 +14,15 @@ export default {
           ok: true,
         };
       } catch (err) {
-        console.log(err);
         return {
           ok: false,
-          errors: [{ path: 'name', message: 'Something went wrong!'}],
+          errors: [{ path: 'name', message: 'Something went wrong!' }],
         };
       }
     }),
+  },
+
+  Team: {
+    channels: ({ id }, args, { models }) => models.Channel.findAll({ teamId: id }),
   },
 };
