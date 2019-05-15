@@ -1,3 +1,5 @@
+import formatErrors from '../formatErrors';
+
 export default {
     Query: {
         allChannels: (aprent, args, { models }) => models.Channel.findAll(),
@@ -5,11 +7,16 @@ export default {
     Mutation: {
         createChannel: async (parent, args, { models }) => {
             try { 
-                await models.Channel.create(args);
-                return true;
+                const channel = await models.Channel.create(args);
+                return {
+                    ok: true,
+                    channel,
+                }
             } catch(err) {
-                console.log(err)
-                return false;
+                return {
+                    ok: false,
+                    errors: formatErrors(err),
+                }
             }  
         }
     }
