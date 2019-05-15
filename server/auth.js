@@ -12,7 +12,7 @@ export const createTokens = async (user, secret, secret2) => {
       expiresIn: '1h',
     },
   );
-  
+
   const createRefreshToken = jwt.sign(
     {
       user: _.pick(user, 'id'),
@@ -29,9 +29,6 @@ export const createTokens = async (user, secret, secret2) => {
 export const refreshTokens = async (token, refreshToken, models, SECRET, SECRET2) => {
   let userId = 0;
   try {
-    /*
-        jwt.decode will return header a     nd payload
-    */
     const { user: { id } } = jwt.decode(refreshToken);
     userId = id;
   } catch (err) {

@@ -6,7 +6,7 @@
 import bcrypt from 'bcrypt'; // Hashed the password 
 import _ from 'lodash'; // lodash imports 
 import { loginFunc } from '../auth';
-import { formatErrors } from '../formatError'; 
+import { formatErrors } from '../formatErrors'; 
 
 export default {
   Query: {

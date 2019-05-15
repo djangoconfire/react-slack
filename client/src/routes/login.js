@@ -23,7 +23,7 @@ class LoginComponent extends React.Component {
         if(ok){
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
-            this.props.history.push('/');
+            this.props.history.push('/dashboard');
         }else {
             const err = {};
             errors.forEach(({ path, message }) => {

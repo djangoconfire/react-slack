@@ -7,11 +7,12 @@ const sequelize = new Sequelize('slack', 'ritu', 'parrot', {
     underscored: true,
   },
 });
+
 const models = {
   User: sequelize.import('./user'),
-  Team: sequelize.import('./team'),
   Channel: sequelize.import('./channel'),
   Message: sequelize.import('./message'),
+  Team: sequelize.import('./team'),
 };
 
 Object.keys(models).forEach((modelName) => {
