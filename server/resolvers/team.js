@@ -25,6 +25,6 @@ export default {
     }),
   },
   Team: {
-    channels: ({ id }, args, { models }) => models.Channel.findAll({ teamId: id }),
+    channels: ({ id }, args, { models }) => models.Channel.findAll({ where: { teamId: id } }),
   },
 };
